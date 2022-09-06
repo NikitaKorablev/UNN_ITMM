@@ -9,9 +9,9 @@
 using namespace std;
 
 class Image {
-    unsigned char** img{};
-    int h{};
-    int w{};
+    unsigned char** img;
+    int h;
+    int w;
 public:
     Image(int _w = 0, int _h = 0) : h(_h), w(_w) {
         img = new unsigned char* [h];
@@ -36,8 +36,9 @@ public:
     }
 
     Image& operator = (const Image& tmp);
-    unsigned char& getPixel(int _w, int _h);
+    int& getPixel(int _w, int _h);
     void show();
+    void increase();
 
     ~Image() {
         for (int i = 0; i < h; i++) {
