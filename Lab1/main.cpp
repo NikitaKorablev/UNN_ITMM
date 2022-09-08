@@ -14,7 +14,7 @@ int main() {
         img.show();
     }
     catch (...) {
-        cout << "Error of size" << endl;
+        cout << "Error of size" << endl << endl;
     }
 
     img.increase();

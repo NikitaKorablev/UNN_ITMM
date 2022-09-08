@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <string.h>
 #include "image.h"
 
 using namespace std;
@@ -39,37 +40,33 @@ void Image::show() {
         }
         cout << endl;
     }
+    cout << endl;
 }
 
 void Image::increase() {
     unsigned char** _img = new unsigned char * [h * 2];
-    for (int i = 0; i < h; i++) {
-        _img[i] = new unsigned char [w * 2];
+    int _h = h * 2, _w = w * 2;
+    for (int i = 0; i < _h; i++) {
+        _img[i] = new unsigned char [_w];
     }
 
-    cout << "err" << endl;
-
     for (int i = 0; i < h; i++) {
-        _img[i][0] = img[i][0];
-        cout << "err2" << endl;
-        int j = 1;
-        for (; j < w; j++) {
-            _img[i][j * 2] = img[i][j];
-            _img[i][j * 2 - 1] = (img[i][j - 1] + img[i][j]) / 2;
+        _img[i * 2][0] = img[i][0];
+        for (int j = 1; j < w; j++) {
+            _img[i * 2][j * 2] = img[i][j];
+            _img[i * 2][j * 2 - 1] = (img[i][j - 1] + img[i][j]) / 2;
         }
-        _img[i][j * 2 + 1] = img[i][j * 2];
+        _img[i * 2][_w - 1] = img[i][w - 1];
 
         if (i >= 1) {
-            for (j = 0; j < w * 2; j++) {
-                _img[i - 1][j] = (_img[i - 2][j] + _img[i][j]) / 2;
+            for (int j = 0; j < _w; j++) {
+                _img[i * 2 - 1][j] = (_img[i * 2 - 2][j] + _img[i * 2][j]) / 2;
             }
         }
     }
 
-    cout << "err" << endl;
-
-    for (int i = 0; i < w * 2; i++) {
-        _img[h * 2 - 1][i] = _img[(h - 1) * 2][i];
+    for (int i = 0; i < _w; i++) {
+        _img[_h - 1][i] = _img[_h - 2][i];
     }
 
     for (int i = 0; i < h; i++) {
@@ -77,5 +74,5 @@ void Image::increase() {
     }
     delete []img;
     img = _img;
-    h *= 2; w *= 2;
+    h = _h; w = _w;
 }

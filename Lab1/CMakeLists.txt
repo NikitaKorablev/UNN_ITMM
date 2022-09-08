@@ -3,13 +3,12 @@ project(Lab1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-#include_directories(MyLib) # Расположение заголовочных файлов
 add_subdirectory(MyStaticLib) # Добавление подпроекта, указывается имя дирректории
 
-add_executable(Lab1 main.cpp MyStaticLib/image.cpp MyStaticLib/image.h)
+add_executable(Lab1 main.cpp)
 
-target_link_libraries(Lab1 PUBLIC MyStaticLib)
+target_link_libraries(Lab1 PRIVATE MyStaticLib)
 
-target_include_directories(Lab1 PUBLIC
+target_include_directories(Lab1 PRIVATE
         "${PROJECT_BINARY_DIR}"
         "${PROJECT_SOURCE_DIR}/MyStaticLib")
