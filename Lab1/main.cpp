@@ -4,14 +4,13 @@
 using namespace std;
 
 int main() {
-    Image img(3, 3);
+    Image img(3, 5);
     Image imgCopy(img);
 
     img.show();
 
     try {
-        img.getPixel(5, 2) = 10;
-        img.show();
+        img.getPixel(1, 3) = 10;
     }
     catch (...) {
         cout << "Error of size" << endl << endl;

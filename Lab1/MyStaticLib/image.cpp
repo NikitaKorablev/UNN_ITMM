@@ -27,10 +27,9 @@ Image &Image::operator=(const Image &tmp) {
     return *this;
 }
 
-int& Image::getPixel(int _w, int _h) {
+char& Image::getPixel(int _w, int _h) {
     if (_w < 0 || _h < 0 || _w >= w || _h >= h) throw 1;
-    cout << (int)img[_h][_w] << endl;
-    return (int&)img[_h][_w];
+    return (char&)img[_h][_w];
 }
 
 void Image::show() {

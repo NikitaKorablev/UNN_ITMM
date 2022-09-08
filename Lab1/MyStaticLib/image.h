@@ -36,7 +36,7 @@ public:
     }
 
     Image& operator = (const Image& tmp);
-    int& getPixel(int _w, int _h);
+    char& getPixel(int _w, int _h);
     void show();
     void increase();
 
