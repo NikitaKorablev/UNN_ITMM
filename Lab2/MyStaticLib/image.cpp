@@ -132,5 +132,6 @@ void ImageInit_v1::writeF(string address) {
         }
         file << endl;
     }
+    file.close();
 }
 
