@@ -3,6 +3,7 @@ project(UNN_ITMM)
 
 set(CMAKE_CXX_STANDARD 14)
 
-include(cmake/function.cmake)
+include(function.cmake)
 
-add_subdirectory(Lab1)
+#add_subdirectory(Lab1)
+add_subdirectory(Lab2)

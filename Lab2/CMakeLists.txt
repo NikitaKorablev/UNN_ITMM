@@ -1,11 +1,11 @@
-project(Lab1)
+project(Lab2)
 
 add_subdirectory(MyStaticLib) # Добавление подпроекта, указывается имя дирректории
 
-add_executable(Lab1 main.cpp)
+add_executable(Lab2 main.cpp)
 
-target_link_libraries(Lab1 PRIVATE MyStaticLib)
+target_link_libraries(Lab2 PRIVATE MyStaticLib)
 
-target_include_directories(Lab1 PRIVATE
+target_include_directories(Lab2 PRIVATE
         "${PROJECT_BINARY_DIR}"
         "${PROJECT_SOURCE_DIR}/MyStaticLib")

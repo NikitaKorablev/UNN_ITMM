@@ -6,6 +6,8 @@
 #define STATICLIB_IMAGE_H
 
 #include <iostream>
+#include <string>
+#include <fstream>
 using namespace std;
 
 class Image {
@@ -46,6 +48,12 @@ public:
         }
         delete []img;
     }
+};
+
+class ImageInit_v1: public Image{
+public:
+    void readF(const string& address);
+    void writeF();
 };
 
 #endif //STATICLIB_IMAGE_H

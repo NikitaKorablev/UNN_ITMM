@@ -75,3 +75,13 @@ void Image::increase() {
     img = _img;
     h = _h; w = _w;
 }
+
+void ImageInit_v1::readF(const string& address) {
+    int H, W;
+    ifstream fin(address, ios::binary);
+    fin >> H >> W;
+    cout << H << " " << W;
+    fin.close();
+
+}
+

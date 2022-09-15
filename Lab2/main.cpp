@@ -19,5 +19,8 @@ int main() {
     img.increase();
     img.show();
 
+    ImageInit_v1 im;
+    im.readF("image.txt");
+
     return 0;
 }
