@@ -38,7 +38,7 @@ public:
     }
 
     Image& operator = (const Image& tmp);
-    char& getPixel(int _w, int _h);
+    char& getPixel(int _h, int _w);
     int& getH();
     int& getW();
     void newParam(int _h, int _w);
@@ -53,8 +53,25 @@ public:
     }
 };
 
-class ImageInit_v1: public Image{
+class ImageInit_v1: public Image{ // inheritance
 public:
+    void readF(string address);
+    void writeF(string address);
+};
+
+class ImageInit_v2 { // aggregation
+    Image image;
+public:
+    ImageInit_v2(int _h = 0, int _w = 0) : image(_h, _w) {};
+    ImageInit_v2 (const ImageInit_v2& tmp) {
+        image = tmp.image;
+    }
+
+    int& getH() { return image.getH(); }
+    int& getW() { return image.getW(); }
+    char& getPixel(int h, int w) { return image.getPixel(h, w); }
+    void newParam(int h, int w) { image.newParam(h, w); }
+
     void readF(string address);
     void writeF(string address);
 };

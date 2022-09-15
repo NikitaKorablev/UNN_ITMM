@@ -123,7 +123,7 @@ void ImageInit_v1::readF(string address) {
     delete[] a;
 }
 
-void ImageInit_v1::writeF(string address) {
+void ImageInit_v2::writeF(string address) {
     ofstream file(address, ios::binary);
     file << this->getH() << " " << this->getW() << endl;
     for (int i = 0; i < this->getH(); i++) {
@@ -135,3 +135,43 @@ void ImageInit_v1::writeF(string address) {
     file.close();
 }
 
+void ImageInit_v2::readF(string address) {
+    int H, W;
+    ifstream file(address, ios::binary);
+    if (!file.is_open()) cout << "err" << endl;
+    file >> H >> W;
+    cout << H << " " << W << endl;
+
+    unsigned char** a = new unsigned char * [H];
+    for (int i = 0; i < H; i++) {
+        a[i] = new unsigned char [W];
+        for (int j = 0; j < W; j++) {
+            file >> a[i][j];
+        }
+    }
+    file.close();
+
+    this->newParam(H, W);
+    for (int i = 0; i < H; i++) {
+        for (int j = 0; j < W; j++) {
+            this->getPixel(i, j) = a[i][j];
+        }
+    }
+
+    for (int i = 0; i < H; i++) {
+        delete[] a[i];
+    }
+    delete[] a;
+}
+
+void ImageInit_v1::writeF(string address) {
+    ofstream file(address, ios::binary);
+    file << this->getH() << " " << this->getW() << endl;
+    for (int i = 0; i < this->getH(); i++) {
+        for (int j = 0; j < this->getW(); j++) {
+            file << this->getPixel(i, j) << " ";
+        }
+        file << endl;
+    }
+    file.close();
+}
