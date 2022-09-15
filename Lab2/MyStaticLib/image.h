@@ -39,6 +39,9 @@ public:
 
     Image& operator = (const Image& tmp);
     char& getPixel(int _w, int _h);
+    int& getH();
+    int& getW();
+    void newParam(int _h, int _w);
     void show();
     void increase();
 
@@ -52,8 +55,8 @@ public:
 
 class ImageInit_v1: public Image{
 public:
-    void readF(const string& address);
-    void writeF();
+    void readF(string address);
+    void writeF(string address);
 };
 
 #endif //STATICLIB_IMAGE_H

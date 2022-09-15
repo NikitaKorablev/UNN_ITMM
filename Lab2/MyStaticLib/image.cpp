@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <typeinfo>
 #include <string.h>
 #include "image.h"
 
@@ -27,15 +28,32 @@ Image &Image::operator=(const Image &tmp) {
     return *this;
 }
 
-char& Image::getPixel(int _w, int _h) {
+char& Image::getPixel(int _h, int _w) {
     if (_w < 0 || _h < 0 || _w >= w || _h >= h) throw 1;
     return (char&)img[_h][_w];
+}
+
+int& Image::getH() { return h; };
+int& Image::getW() { return w; };
+
+void Image::newParam(int _h, int _w) {
+    for (int i = 0; i < h; i++) {
+        delete[] img[i];
+    }
+    delete[] img;
+
+    h = _h; w = _w;
+    img = new unsigned char * [h];
+    for (int i = 0; i < h; i++) {
+        img[i] = new unsigned char [w];
+    }
 }
 
 void Image::show() {
     for (int i = 0; i < h; i++) {
         for (int j = 0; j < w; j++) {
-            cout << (int)img[i][j] << " ";
+//            cout << typeid(img[i][j]).name() << " ";
+            cout << img[i][j] << " ";
         }
         cout << endl;
     }
@@ -76,12 +94,43 @@ void Image::increase() {
     h = _h; w = _w;
 }
 
-void ImageInit_v1::readF(const string& address) {
+void ImageInit_v1::readF(string address) {
     int H, W;
-    ifstream fin(address, ios::binary);
-    fin >> H >> W;
-    cout << H << " " << W;
-    fin.close();
+    ifstream file(address, ios::binary);
+    if (!file.is_open()) cout << "err" << endl;
+    file >> H >> W;
+    cout << H << " " << W << endl;
 
+    unsigned char** a = new unsigned char * [H];
+    for (int i = 0; i < H; i++) {
+        a[i] = new unsigned char [W];
+        for (int j = 0; j < W; j++) {
+            file >> a[i][j];
+        }
+    }
+    file.close();
+
+    this->newParam(H, W);
+    for (int i = 0; i < H; i++) {
+        for (int j = 0; j < W; j++) {
+            this->getPixel(i, j) = a[i][j];
+        }
+    }
+
+    for (int i = 0; i < H; i++) {
+        delete[] a[i];
+    }
+    delete[] a;
+}
+
+void ImageInit_v1::writeF(string address) {
+    ofstream file(address, ios::binary);
+    file << this->getH() << " " << this->getW() << endl;
+    for (int i = 0; i < this->getH(); i++) {
+        for (int j = 0; j < this->getW(); j++) {
+            file << this->getPixel(i, j) << " ";
+        }
+        file << endl;
+    }
 }
 
