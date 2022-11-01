@@ -11,11 +11,12 @@
 using namespace std;
 
 class Image {
+protected:
     unsigned char** img;
     int h;
     int w;
 public:
-    Image(int _w = 0, int _h = 0) : h(_h), w(_w) {
+    Image(int _h = 0, int _w = 0) : h(_h), w(_w) {
         img = new unsigned char* [h];
         for (int i = 0; i < h; i++) {
             img[i] = new unsigned char [w];
@@ -55,22 +56,24 @@ public:
 
 class ImageInit_v1: public Image{ // inheritance
 public:
+    ImageInit_v1(int _h = 0, int _w = 0) : Image(_h, _w) {}
     void readF(string address);
     void writeF(string address);
 };
 
 class ImageInit_v2 { // aggregation
-    Image image;
+    Image* image;
 public:
-    ImageInit_v2(int _h = 0, int _w = 0) : image(_h, _w) {};
+    ImageInit_v2(Image* _img) : image(_img) {};
+    ImageInit_v2(int _h, int _w) { image = new Image(_h, _w); }
     ImageInit_v2 (const ImageInit_v2& tmp) {
         image = tmp.image;
     }
 
-    int& getH() { return image.getH(); }
-    int& getW() { return image.getW(); }
-    char& getPixel(int h, int w) { return image.getPixel(h, w); }
-    void newParam(int h, int w) { image.newParam(h, w); }
+//    int& getH() { return image->getH(); }
+//    int& getW() { return image->getW(); }
+//    char& getPixel(int h, int w) { return image->getPixel(h, w); }
+//    void newParam(int h, int w) { image->newParam(h, w); }
 
     void readF(string address);
     void writeF(string address);

@@ -11,10 +11,19 @@ project(Image)
 #        "${PROJECT_BINARY_DIR}"
 #        "${PROJECT_SOURCE_DIR}/MyStaticLib")
 
-include(cmake/function.cmake)
+include(function.cmake)
+
+option(BTEST "build test?" ON)
 
 add_subdirectory(Libs/image)
 add_subdirectory(Libs/Colorize)
+
+if(BTEST)
+    add_subdirectory(Libs/gtest)
+    add_subdirectory(Libs/tests)
+endif()
+unset(BTEST CACHE)
+
 add_subdirectory(main)
 
 

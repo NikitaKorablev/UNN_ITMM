@@ -28,45 +28,45 @@ void fill_template(Image& img, T* m) {
 }
 
 int main() {
-//    Image img(3, 5);
-//    Image imgCopy(img);
-//
-//    img.show();
-//
-//    try {
-//        img.getPixel(1, 3) = 10;
-//    }
-//    catch (...) {
-//        cout << "Error of size" << endl << endl;
-//    }
-//
-//    img.increase();
-//    img.show();
+    Image img(3, 5);
+    Image imgCopy(img);
 
-//    ImageInit_v1 im;
-//    im.readF("image1.txt");
-//    im.show();
-//
-//    im.increase();
-//    im.show();
-//
-//    im.writeF("image2.txt");
+    img.show();
+
+    try {
+        img.getPixel(1, 3) = 10;
+    }
+    catch (...) {
+        cout << "Error of size" << endl << endl;
+    }
+
+    img.increase();
+    img.show();
+
+    ImageInit_v1 im;
+    im.readF("image1.txt");
+    im.show();
+
+    im.increase();
+    im.show();
+
+    im.writeF("image2.txt");
 
 // ------------------------------------------------------
 
-    Image img(3, 3);
+    Image img2(3, 3);
 
-    fill(img,new  White());
-    img.show();
+    fill(img2,new  White());
+    img2.show();
 
-    fill(img, new BlackWhite());
-    img.show();
+    fill(img2, new BlackWhite());
+    img2.show();
 
-    fill_template(img, new White());
-    img.show();
+    fill_template(img2, new White());
+    img2.show();
 
-    fill_template(img, new BlackWhite());
-    img.show();
+    fill_template(img2, new BlackWhite());
+    img2.show();
 
     return 0;
 }
