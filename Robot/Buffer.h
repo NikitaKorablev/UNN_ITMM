@@ -52,7 +52,7 @@ public:
         XY_old.x = xy[end].x;
         XY_old.y = xy[end].y;
 //        cout << "start_end " << start << " " << end << endl;
-        cout << "Move to: " << XY_old.x << ":" << XY_old.y << endl;
+        cout << "Move to: " << xy[end].x << ":" << xy[end].y << endl;
         return XY_old;
     }
     ~Buffer() {
