@@ -1,14 +1,17 @@
 #include <string>
 #include <iostream>
-#include "Suntax.h"
+#include "Calculate.h"
 using namespace std;
 
 int main() {
-	string str = "( 123 -10)/ 50 * 30 \n";
+	string str = "( 123 -10)/50 * 30 \n";
+//    string str = "50/( 123 -10) * 30 \n";
 	cout << str;
-	queue <Lexema> lex_res;
-	lex_res = lex(str);
-	print(lex_res);
-    print(sunt(lex_res));
+
+    Calculate calc(str);
+    print(calc.getLex());
+    cout << endl;
+    print(calc.getSynt());
+    cout << calc.getRes() << endl;
 	return 0;
 }

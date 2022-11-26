@@ -6,48 +6,45 @@
 #define PARSER_SUNTAX_H
 
 #include "Lexema.h"
-#include "map"
 using namespace std;
 
-map <string, int> priority = {
-        {"(", 0}, {")", 0},
-        {"+", 1}, {"-", 1},
-        {"*", 2}, {"/", 2}
-};
+string mapPriotity[3] = {"()", "+-", "*/"};
+int priority(string op) {
+    for (int i = 0; i < 3; i++) {
+//        cout << mapPriotity[i] << " ";
+        if (mapPriotity[i].find(op) != -1) return i;
+    }
+    return -1;
+}
 
-
-
-queue<string> sunt(queue <Lexema> qLex) {
-//    cout << priority['*'] << endl;
-    stack<string> stack;
-    queue<string> polc;
+queue<Lexema> sunt(queue <Lexema> qLex) {
+    stack<Lexema> stack;
+    queue<Lexema> polc;
 
     cout << endl;
     while (!qLex.empty()) {
         if (qLex.front().getType() == Value) {
-            polc.push(qLex.front().getStr());
+            polc.push(Lexema(qLex.front().getStr(), Value));
         }
         else if (qLex.front().getType() == Operation) {
             while (!stack.empty()) {
-                cout << stack.top() << " " << qLex.front().getStr() << endl;
-                if (priority[stack.top()] >= priority[qLex.front().getStr()]) {
-                    if (qLex.front().getStr() != "(") polc.push(stack.top());
+//                cout << stack.top().getStr() << " " << priority(stack.top().getStr()) << " ";
+//                cout << qLex.front().getStr() << " " << priority(qLex.front().getStr()) << endl;
+                if (priority(stack.top().getStr()) <= priority(qLex.front().getStr())) {
+                    if (stack.top().getStr() != "(") polc.push(Lexema(stack.top()));
                     stack.pop();
+//                    if (stack.top().getStr() == "(") stack.pop();
                 } else break;
             }
-            if (qLex.front().getStr() != "(") stack.push(qLex.front().getStr());
+            if (qLex.front().getStr() != ")") stack.push(qLex.front());
         } else throw -1;
         qLex.pop();
     }
+    while (!stack.empty()) {
+        if (stack.top().getStr() != "(" && stack.top().getStr() != ")") polc.push(Lexema(stack.top()));
+        stack.pop();
+    }
     return polc;
 }
-
-void print(queue<string> t) {
-    while (!t.empty()) {
-        cout << t.front() << endl;
-        t.pop();
-    }
-}
-
 #endif //PARSER_SUNTAX_H
 
