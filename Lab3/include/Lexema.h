@@ -8,18 +8,22 @@
 #include "string"
 #include "iostream"
 #include <queue>
-#include <stack>
+//#include <stack>
+#include "SQ.h"
+
 using namespace std;
 
 enum TypeElement {
     Operation,
-    Value
+    Value,
+    Undefined
 };
 
 class Lexema {
     string str;
     TypeElement type;
 public:
+    Lexema() : str(""), type(Undefined) {};
     Lexema(string _str, TypeElement _type) : str(_str), type(_type) {};
     string getStr() {return str;};
     TypeElement getType() {return type;};
@@ -46,7 +50,6 @@ queue <Lexema> lex(string input) {
     int state = 0;
     for (i = 0; i < input.size(); i++) {
         char c = input[i];
-        int fres;
         switch (state)
         {
             case 0: // find digit
@@ -55,12 +58,14 @@ queue <Lexema> lex(string input) {
                     state = 1;
                     break;
                 }
-                fres = op.find(c);
-                if (fres >= 0) {
+                if (op.find(c) != -1) {
                     tmp = c;
-                    Lexema l(tmp, Operation);
-                    res.push(l);
+                    res.push(Lexema(tmp, Operation));
                     state = 0;
+                    break;
+                }
+                if (sep.find(c) != string::npos){
+                    tmp = "";
                     break;
                 }
                 break;
@@ -70,20 +75,15 @@ queue <Lexema> lex(string input) {
                     state = 1;
                     break;
                 }
-                fres = op.find(c);
-                if (fres >= 0) {
-                    Lexema l1(tmp, Value);
-                    res.push(l1);
+                if (op.find(c) != -1) {
+                    res.push(Lexema(tmp, Value));
                     tmp = c;
-                    Lexema l2(tmp, Operation);
-                    res.push(l2);
+                    res.push(Lexema(tmp, Operation));
                     state = 0;
                     break;
                 }
-                fres = sep.find(c);
-                if (fres >= 0) {
-                    Lexema l(tmp, Value);
-                    res.push(l);
+                if (sep.find(c) != -1) {
+                    res.push(Lexema(tmp, Value));
                     state = 0;
                     break;
                 }

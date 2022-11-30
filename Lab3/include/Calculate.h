@@ -8,7 +8,7 @@
 #include "Suntax.h"
 
 double calc(queue<Lexema> synt) {
-    stack<double> numbers;
+    Stack<double> numbers;
     int len = synt.size();
     double a, b;
     for (int i = 0; i < len; i++) {
@@ -17,7 +17,7 @@ double calc(queue<Lexema> synt) {
         } else if (synt.front().getType() == Operation) {
             b = numbers.top(); numbers.pop();
             a = numbers.top(); numbers.pop();
-            cout << a << " " << b << endl;
+//            cout << a << " " << b << endl;
             switch (synt.front().getStr()[0]) {
                 case '+': {
                     numbers.push(a + b);
