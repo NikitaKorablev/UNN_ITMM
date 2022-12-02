@@ -21,18 +21,19 @@ queue<Lexema> sunt(queue <Lexema> qLex) {
     queue<Lexema> polc;
 
     cout << endl;
+    int i = -1;
     while (!qLex.empty()) {
+        i++;
         if (qLex.front().getType() == Value) {
-            polc.push(Lexema(qLex.front().getStr(), Value));
+            polc.push(Lexema(qLex.front().getStr(), Value, i));
         }
         else if (qLex.front().getType() == Operation) {
             while (!stack.isEmpty()) {
 //                cout << stack.top().getStr() << " " << priority(stack.top().getStr()) << " ";
 //                cout << qLex.front().getStr() << " " << priority(qLex.front().getStr()) << endl;
-                if (priority(stack.top().getStr()) <= priority(qLex.front().getStr())) {
+                if (priority(stack.top().getStr()) >= priority(qLex.front().getStr()) && qLex.front().getStr() != "(") {
                     if (stack.top().getStr() != "(") polc.push(Lexema(stack.top()));
                     stack.pop();
-//                    if (stack.top().getStr() == "(") stack.pop();
                 } else break;
             }
             if (qLex.front().getStr() != ")") stack.push(qLex.front());
